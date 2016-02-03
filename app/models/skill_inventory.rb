@@ -1,4 +1,5 @@
 require 'yaml/store'
+require_relative 'skill'
 
 class SkillInventory
 attr_reader :database
@@ -17,7 +18,6 @@ attr_reader :database
   end
 
   def raw_skills
-    self
     database.transaction do
       database['skills'] || []
     end
@@ -27,6 +27,27 @@ attr_reader :database
     raw_skills.map { |data| Skill.new(data) }
   end
 
+  def raw_skill(id)
+    raw_skills.find { |skill| skill['id'] == id }
+  end
+
+  def find(id)
+    Skill.new(raw_skill(id))
+  end
+
+  def update(skill, id)
+    database.transaction do
+      target = database['skills'].find { |data| data['id'] == id }
+      target['name'] = skill['name']
+      target['description'] = skill['description']
+    end
+  end
+
+  def delete(id)
+    database.transaction do
+      database['skills'].delete_if { |data| data['id'] == id }
+    end
+  end
   # def self.database
   #   @database ||= YAML::Store.new("db/skill_inventory")
   # end

@@ -11,13 +11,11 @@
         <div class="list-group">
       <% @skills.each do |skill| %>
       <button type="button" class="list-group-item">
-        <%= skill %>:
-        <a class="text-danger" href="/tasks/<%= task.id %>">
-          <%= skill.title %>
-        </a>
+        <%= skill.id %>:
+        <a class="text-danger" href="/skills/<%= skill.id %>"><%= skill.name %></a>
       </button>
         <a href="/skills/<%= skill.id %>/edit">Edit</a>
-        <form action="/task/" method="post">
+        <form action="/skills/<%= skill.id %>" method="post">
           <input type="hidden" name="_method" value="delete">
           <input type="submit" value="delete">
         </form>

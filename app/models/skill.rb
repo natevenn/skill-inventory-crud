@@ -3,8 +3,8 @@ class Skill
               :description,
               :id
   def initialize(data)
-    @id          = data["id"]
-    @name        = data['name']
-    @description = data['description']
+    @id          = data[:id]
+    @name        = data[:name]
+    @description = data[:description]
   end
 end

@@ -1,6 +1,25 @@
-<form action="/skills" method="post">
-  <p>Add a new skill:</p>
-  <input type="text" name="skill[name]"/>
-  <textarea name="skill[description]"></textarea>
-  <input type="submit"/>
+<!DOCTYPE html>
+<html lang ='en'>
+  <head>
+    <title>Skill Inventory</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  </head>
+<div class="container">
+  <div class="list-group">
+<form class="task-form" action="/skills" method="post">
+  <h2 class="list-group-item active">Add a new skill</h2>
+</div>
+<div class="well well-lg">
+  <div class="input-group input-group-lg">
+   <input type="text" class="form-control" placeholder="skill" name="skill[name]"/><br>
+   <textarea class="form-control" placeholder="description" name="skill[description]"></textarea><br>
+   <input type="submit" value='submit'/>
+   <!-- <button type="submit" class="btn btn-success" value="submit">submit</button> -->
 </form>
+</div>
+</div>
+</div>
+<!-- <div class="input-group input-group-lg">
+  <span class="input-group-addon" id="sizing-addon1">@</span>
+  <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1">
+</div> -->

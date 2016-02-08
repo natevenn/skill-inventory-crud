@@ -6,21 +6,28 @@
   </head>
 <div class="container">
   <div class="list-group">
-  <h1><a href="#" class="list-group-item active">My Skills</a><h1>
+  <h2><a href="#" class="list-group-item active">My Skills</a><h2>
       <div class="list-unstyled">
         <div class="list-group">
+          <div id='skills'>
+            <div class="well well-lg">
       <% @skills.each do |skill| %>
+      <div id="skill-<%= skill.id %>">
       <button type="button" class="list-group-item">
-        <%= skill.id %>:
         <a class="text-danger" href="/skills/<%= skill.id %>"><%= skill.name %></a>
       </button>
-        <a href="/skills/<%= skill.id %>/edit">Edit</a>
+      <div class="list-unstyled list-inline">
+        <a class="btn btn-primary btn-active" href="/skills/<%= skill.id %>/edit" role="button">Edit</a>
         <form action="/skills/<%= skill.id %>" method="post">
           <input type="hidden" name="_method" value="delete">
-          <input type="submit" value="delete">
+          <button type="submit" class="btn btn-success">Delete</button>
         </form>
+      </div>
       <% end %>
-    </div>
+  </div>
+  </div>
+  </div>
+</div>
   </div>
 </div>
 </div>

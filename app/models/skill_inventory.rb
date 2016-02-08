@@ -1,6 +1,3 @@
-require 'yaml/store'
-require_relative 'skill'
-
 class SkillInventory
 attr_reader :database
 
@@ -9,46 +6,31 @@ attr_reader :database
   end
 
   def create(skill)
-    database.transaction do
-    database['skills'] ||= []
-    database['total']  ||= 0
-    database['total'] += 1
-    database['skills'] << {'id'=> database['total'], 'name'=> skill[:name], 'description'=> skill[:description] }
-    end
+    dataset.insert(skill)
   end
 
-  def raw_skills
-    database.transaction do
-      database['skills'] || []
-    end
+  def dataset
+    database.from(:skills)
   end
 
   def all
-    raw_skills.map { |data| Skill.new(data) }
-  end
-
-  def raw_skill(id)
-    raw_skills.find { |skill| skill['id'] == id }
+    dataset.to_a.map { |data| Skill.new(data) }
   end
 
   def find(id)
-    Skill.new(raw_skill(id))
+    data = dataset.where(:id => id).to_a.first
+    Skill.new(data)
   end
 
   def update(skill, id)
-    database.transaction do
-      target = database['skills'].find { |data| data['id'] == id }
-      target['name'] = skill['name']
-      target['description'] = skill['description']
-    end
+    data = dataset.where(:id => id).update(skill)
   end
 
   def delete(id)
-    database.transaction do
-      database['skills'].delete_if { |data| data['id'] == id }
-    end
+    dataset.where(:id => id).delete
   end
-  # def self.database
-  #   @database ||= YAML::Store.new("db/skill_inventory")
-  # end
+
+  def find_by(input)
+    dataset.where(input).map {|s| Skill.new(s)}
+  end
 end
